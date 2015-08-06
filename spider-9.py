@@ -10,7 +10,7 @@ except urllib2.URLError,e:
     print e.rason
 else:
     print 'OK'
-#或者	
+'''#或者	
 import urllib2
  
 req = urllib2.Request('http://blog.csdn.net/cqcre')
@@ -23,3 +23,4 @@ except urllib2.URLError, e:
         print e.reason
 else:
     print "OK"
+'''

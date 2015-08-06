@@ -2,13 +2,13 @@
 #加入headers
 
 import urllib,urllib2
-url='http://www.server.com/login'
+url='http://www.baidu.com/login'
 values={'username':'cqc','password':'XXXX'}
 headers={'User-Agent':'Mozilla/4.0(compatible;MSIE 5.5;Windows NT)'}
-data=urllib2.urlencode(values)
+data=urllib.urlencode(values)
 request=urllib2.Request(url,data,headers)
-repsonse=urllib2.urlopen(request)
-
+response=urllib2.urlopen(request)
+print response.read().decode('utf-8')
 #防盗链 headers = { 'User-Agent' : 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'  ,'Referer':'http://www.zhihu.com/articles' }
 #headers的一些属性:
 #User-Agent : 有些服务器或 Proxy 会通过该值来判断是否是浏览器发出的请求

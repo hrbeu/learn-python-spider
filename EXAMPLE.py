@@ -17,7 +17,7 @@ data=urllib.urlencode(values)
 headers={
     "User-Agent":"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36"
 }
-request=urllib2.Request("http://www.zhihu.com",data,headers)
+request=urllib2.Request("http://www.zhihu.com",data,headers)#POST传参
 cj=cookielib.CookieJar()
 opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 for item in cj:

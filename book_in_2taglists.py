@@ -126,7 +126,7 @@ if __name__=="__main__":
             if religion_book['name'].strip()==symbol_book['name'].strip():
                 filtered_books.append(religion_book)
 
-    #对检索到的书籍按星级有高到低进性排序
+    #对检索到的书籍按星级由高到低进行排序
     filtered_books=sorted(filtered_books,key=lambda x:x['stars'][0],reverse=True)
     
     raw_input('PRESS ENTER TO　CONTINUE...')
@@ -134,5 +134,21 @@ if __name__=="__main__":
     for filtered_book in filtered_books:
         print filtered_book['name'].encode('utf-8')+' : '+str(filtered_book['stars'][0])+' '+str(filtered_book['link'])
 
-                
+
+
+
+
+
+'''
+
+
+天使与魔鬼:allstar45http://book.douban.com/subject/3654604/
+达芬奇密码:allstar45http://book.douban.com/subject/4242406/
+藏传佛教象征符号与器物图解:allstar45http://book.douban.com/subject/2116107/
+天使与魔鬼:allstar40http://book.douban.com/subject/1228110/
+失落的秘符:allstar40http://book.douban.com/subject/4171951/
+失落的秘符:allstar40http://book.douban.com/subject/4171951/
+符号与象征:allstar40http://book.douban.com/subject/3908349/
+发现教堂的艺术:allstar40http://book.douban.com/subject/4884848/
+'''
 

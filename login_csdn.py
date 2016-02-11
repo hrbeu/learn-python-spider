@@ -27,8 +27,8 @@ if not os.path.exists('cookiejar'):
         #获取执行次数
         execution=tree.xpath('//*[@id="fm1"]/input[4]/@value')[0]
         #填充登录表单
-        payload={'username':'jb19900111',
-                'password':'jiangbo885080',
+        payload={'username':'',
+                'password':'',
                 'lt':lt,
                 'execution':execution,
                 '_eventId':'submit',
@@ -69,8 +69,8 @@ soup=BeautifulSoup(html)
 lt=soup.find_all("input")[3]['value']
 #获取执行次数
 execution=soup.find_all("input")[4]['value']
-data={'username':'jb19900111',
-      'password':'jiangbo885080',
+data={'username':'',
+      'password':'',
       'lt':lt,
       'execution':execution,
       '_eventId':'submit',

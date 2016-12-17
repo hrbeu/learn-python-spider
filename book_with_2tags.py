@@ -26,8 +26,6 @@ for cookie in json.loads(cookies):
 '''
 
 
-
-
 books=[]
 filtered_books=[]
 result_books=[]
@@ -65,7 +63,7 @@ def check_tag(url):
         return True
     else:
         return False
-'''
+
 def login():
     cj=cookielib.CookieJar()
     handler=urllib2.HTTPCookieProcessor(cj)
@@ -87,7 +85,7 @@ def login():
     except (urllib2.HTTPError, urllib2.URLError), e:
         print e
     return opener
-'''
+
 def multi_thread(func,parameter):
     pool=ThreadPool(4)
     symbol_results=pool.map(func,parameter)
@@ -97,8 +95,8 @@ def multi_thread(func,parameter):
     
 if __name__=="__main__":
 
-   # douban_opener=login()
-    #urllib2.install_opener(douban_opener)
+    douban_opener=login()
+    urllib2.install_opener(douban_opener)
     multi_thread(one_page_book_info,start_urls)
     
 #    for url in start_urls:

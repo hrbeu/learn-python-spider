@@ -41,20 +41,27 @@ class question(zhihu):
             #print type(content["msg"])
             for item in content["msg"]:
                 answer = {}
-                answer["content"]=item
+                answer["html"]=item
                 tree=etree.HTML(item)
+                #提取回答内容
+                for node in tree.xpath("//div[@class='zm-editable-content clearfix']"):
+                    answer['content']=node.xpath('string(.)')
+                #提取点赞数
                 for node in  tree.xpath("//button[@class='up ']"):
                     answer['voteCount']=int(node.xpath("//span[@class='count']/text()")[0])
+                #提取评论数
                 for node in  tree.xpath("//a[@name='addcomment']"):
                     if node.xpath("text()")[1]!=u"添加评论":
                         answer['commentsCount']=int(node.xpath("text()")[1][0])
                     else:
                         answer['commentsCount']=0
+                #提取编辑时间
                 for node in tree.xpath("//a[@class='answer-date-link meta-item']"):
                     answer['editTime']=node.xpath("text()")[0][-10:]
                 self.answers.append(answer)
             offset+=10
             count+=len(content["msg"])
+            #如果页面答案数小于10，则到了最后一页，停止爬取
             if int(len(content["msg"])) < 10:
                 endflag=False
                 print "共捕获%s个回答" % count
@@ -64,12 +71,12 @@ class question(zhihu):
         for answer in sorted_answers:
             print answer["content"]
             print criterion,":",answer[criterion]
-            print "\n===========================   THE  END   ====================================\n"
+        print "\n===========================   THE  END   ====================================\n"
 
 
 a1=question()
 a1.login()
-a1.get_answers('43664024')
+a1.get_answers('23142571')
 a1.answers_sort("commentsCount")
 
 

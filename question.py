@@ -1,10 +1,15 @@
-#-*- coding: utf-8 -*-
+﻿#-*- coding: utf-8 -*-
 import re
 import json
 from lxml import etree
 from zhuanlan import zhihu
 import operator
 import time
+import loggingconfig
+import logging
+
+loggingconfig.config_logging("C:\Users\win\Desktop\question.log")
+LOG=logging.getLogger("__name__")
 
 class question(zhihu):
     def __init__(self):
@@ -39,6 +44,7 @@ class question(zhihu):
                 r=self.session.post('https://www.zhihu.com/node/QuestionAnswerListV2',data=data,headers=self.headers)
                 content=json.loads(r.content.decode('utf8','ignore'))
             except:
+                LOG.error("Couldn't get content of https://www.zhihu.com/node/QuestionAnswerListV2")
                 break
             #print content
             #print content["msg"]
@@ -86,7 +92,13 @@ class question(zhihu):
                 print "共捕获%s个回答" % count
     #对答案进行排序
     def answers_sort(self,criterion="editTime"):
-        sorted_answers = sorted(self.answers, key=operator.itemgetter(criterion), reverse=True)
+        try:
+            sorted_answers = sorted(self.answers, key=operator.itemgetter(criterion), reverse=True)
+        except Exception,e:
+            LOG.error("Criterion %s doesn't exist" % criterion)
+            exit(1)
+        else:
+            LOG.info("Answers sorted by %s" % criterion)
         for answer in sorted_answers:
             print answer["content"]
             print u"作者头像：",answer['profile_photo']
@@ -99,8 +111,8 @@ class question(zhihu):
 
 a1=question()
 a1.login()
-a1.get_answers('29057201')
-a1.answers_sort("commentsCount")
+a1.get_answers('29995881')
+a1.answers_sort("voteCount")
 
 
 

@@ -13,6 +13,10 @@ try:
 except:
     pass
 import operator
+import logging
+import loggingconfig
+loggingconfig.config_logging("C:\Users\win\Desktop\zhuanlan.log")
+LOG=logging.getLogger("__name__")
 
 class zhihu():
     def __init__(self):
@@ -107,6 +111,7 @@ class zhihu():
             print login_page.status_code
             print login_code
         except:
+            LOG.error("Need to type in the captcha manually")
             # 需要输入验证码后才能登录成功
             postdata["captcha"] = self.get_captcha()
             login_page = self.session.post(post_url, data=postdata, headers=self.headers)
@@ -168,7 +173,13 @@ class zhuanlan(zhihu):
             offset += 20
     #对文章排序
     def zhuanlan_sort(self,criterion):
-        sorted_articles=sorted(self.articles,key=operator.itemgetter(criterion),reverse=True)
+        try:
+            sorted_articles=sorted(self.articles,key=operator.itemgetter(criterion),reverse=True)
+        except Exception,e:
+            LOG.error("Criterion %s doesn't exist" % criterion)
+            exit(1)
+        else:
+            LOG.info("Answers sorted by %s" % criterion)
         for article in sorted_articles:
             print article['title'],criterion+':',article[criterion]
 
@@ -176,6 +187,6 @@ class zhuanlan(zhihu):
 if __name__=='__main__':
     z=zhuanlan()
     z.login()
-    z.get_zhuanlan('queen')
+    z.get_zhuanlan('KarolusSericus')
     print "一共%s篇文章" % len(z.articles)
     z.zhuanlan_sort('likesCount')
